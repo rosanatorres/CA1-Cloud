@@ -13,6 +13,10 @@ WORKDIR /busybox
 # Copy the busybox build config (limited to httpd)
 COPY .config .
 
+#Download and unzip CA1
+RUN wget https://github.com/rosanatorres/DevCA1/archive/main.zip
+RUN unzip main.zip
+
 # Compile and install busybox
 RUN make && make install
 
@@ -40,10 +44,9 @@ WORKDIR /home/static
 # want to use a httpd.conf
 COPY httpd.conf .
 
+
 # Copy the static website
-# Use the .dockerignore file to control what ends up inside the image!
-# NOTE: Commented out since this will also copy the .config file
-# COPY . .
+COPY DevCA1-main . 
 
 # Run busybox httpd
-CMD ["/busybox", "httpd", "-f", "-v", "-p", "8080", "-c", "httpd.conf"]
+CMD ["/busybox", "httpd", "-f", "-v", "-p", "8080", "-c", "httpd.conf", "./index.html"]
