@@ -16,7 +16,7 @@ docker build -t my-static-website .
 Run the image on port 8080:
 
 ```sh
-docker run -it --rm -p 8000:8000 my-static-website
+docker run -it --rm -p 8080:8080 my-static-website
 ```
 Browse to http://localhost:8080.
 
